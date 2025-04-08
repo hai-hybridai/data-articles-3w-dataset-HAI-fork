@@ -266,6 +266,30 @@ The numerical codes associated with the state labels are detailed in Table 5. An
 | 8 | Depressurization |
 | NaN | Unknown |
 
+Apart from the *Normal* state, all other possible states are linked to well shutdown events. During these events, knowing the current state of the well while monitoring for hydrate risk is extremely important. For example, the *Closed with Diesel* state occurs after a successful *Diesel flushing* or *bullheading* operation, which substitutes the production fluid with Diesel. Therefore, it is highly unlikely that hydrate formation will occur while in this state. Additionally, retaining information on past operations may also be useful, for example, depressurization operations during shut-in may reduce the subcooling level of the production system and reduce hydrate formation risks.
+
+For real instances, the labeling of the well state is carried out manually by the *hyd-ai consortium*. In simulated instances, the state is detected manually from the valve opening data inputted into the simulation. In the simulated instances, the system valves that are modeled are the following: M1, W1, PXO, XO, SDV-P and PCK. The valves in the service line are not modelled (i.e., W2, M2, GLCK). The production choke valve is considered closed when its opening is lower than 5%.
+
+A summary of how each state is identified is laid out below.
+
+- *Normal*: All valves in the production system are open and the auxiliary valves are closed (PXO and XO).
+
+- *Shut-in*: At least one valve in the production path is closed (M1, W1, SDV-P and PCK).
+
+- *Flushing Diesel*: At least one of the wellhead valves are closed, either the XO or PXO valve is opened, and Diesel is being injected.
+
+- *Flushing Gas*: At least one of the wellhead valves are closed, either the XO or PXO valve is opened, and gas is being injected.
+
+- *Bullheading*: All the valves in the production path are opened, and Diesel is being injected from the topside auxiliary line.
+
+- *Closed with Gas*: At least one valve in the production path is closed (M1, W1, SDV-P and PCK) and the previous state is *Flushing Gas*.
+
+- *Closed with Diesel*: At least one valve in the production path is closed (M1, W1, SDV-P and PCK) and the previous state is either *Flushing Diesel* or *Bullheading*.
+
+- *Restart*: After the initial shut-in, all valves in the production path are opened (M1, W1, SDV-P and PCK).
+
+- *Depressurization*: After the initial shut-in, the SDV-P and PCK have been opened while the wellhead valves (M1 and W1) and auxiliary valves (PXO and XO) remained closed.
+
 #### Method Relating to Real Instances
 
 The particularities of the method developed for real data are listed below.
